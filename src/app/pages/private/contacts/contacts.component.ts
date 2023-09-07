@@ -1,17 +1,18 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { MatIconRegistry } from '@angular/material/icon';
-import { DomSanitizer } from '@angular/platform-browser';
 import { Store } from '@ngxs/store';
 import { Observable, Subject, takeUntil } from 'rxjs';
 import { IContact } from '../../../core/interfaces/contacts.interface';
 import { ContactsState } from '../../../core/state/contacts/contacts.state';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { DeleteContactAction } from '../../../core/state/contacts/contacts.actions';
+import { SweetAlertHelper } from '../../../core/helpers/sweet-alert.helper';
 
 @Component({
   selector: 'app-contacts',
   templateUrl: './contacts.component.html',
   styleUrls: ['./contacts.component.scss'],
 })
+
 export class ContactsComponent implements OnInit, OnDestroy {
   private destroy: Subject<boolean> = new Subject();
   filterForm: FormGroup;
@@ -19,7 +20,11 @@ export class ContactsComponent implements OnInit, OnDestroy {
   contacts: IContact[] = [];
   contactsFiltered: IContact[] = [];
 
-  constructor(private store: Store, private fb: FormBuilder) {
+  constructor(
+    private store: Store,
+    private fb: FormBuilder,
+    private sweetAlertHelper: SweetAlertHelper
+  ) {
     this.listContacts$ = this.store.select(ContactsState.getAllContacts);
     this.filterForm = this.createForm();
     this.subscribeForm();
@@ -42,6 +47,9 @@ export class ContactsComponent implements OnInit, OnDestroy {
       if (resp && resp.length) {
         this.contacts = resp;
         this.contactsFiltered = resp;
+      } else {
+        this.contacts = [];
+        this.contactsFiltered = [];
       }
     });
   }
@@ -52,6 +60,7 @@ export class ContactsComponent implements OnInit, OnDestroy {
       ?.valueChanges.pipe(takeUntil(this.destroy))
       .subscribe((name) => {
         if (name) {
+          this.clearFormControls('name');
           this.contactsFiltered = this.contacts.filter((contact) =>
             contact.name.toLowerCase().includes(name.toLowerCase())
           );
@@ -65,6 +74,7 @@ export class ContactsComponent implements OnInit, OnDestroy {
       ?.valueChanges.pipe(takeUntil(this.destroy))
       .subscribe((email) => {
         if (email) {
+          this.clearFormControls('email');
           this.contactsFiltered = this.contacts.filter((contact) =>
             contact.email.toLowerCase().includes(email.toLowerCase())
           );
@@ -78,11 +88,38 @@ export class ContactsComponent implements OnInit, OnDestroy {
       ?.valueChanges.pipe(takeUntil(this.destroy))
       .subscribe((phone) => {
         if (phone) {
+          this.clearFormControls('phone');
           this.contactsFiltered = this.contacts.filter((contact) =>
-            contact.phone.toLowerCase().includes(phone.toLowerCase())
+            contact.phone.toString().includes(phone.toString())
           );
         } else {
           this.contactsFiltered = this.contacts;
+        }
+      });
+  }
+
+  clearFormControls(control: string) {
+    Object.keys(this.filterForm.controls).forEach((key) => {
+      if (key !== control) {
+        this.filterForm.controls[key].setValue('');
+      }
+    });
+  }
+
+  deleteContact(id: number) {
+    const contact = this.contacts.find((contact) => contact.id === id);
+    this.sweetAlertHelper
+      .createCustomAlert({
+        title: 'Eliminar Contacto',
+        text: `¿Esta seguro que desea eliminar este contacto ${contact?.name}?`,
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: 'Eliminar',
+        cancelButtonText: 'Cancelar',
+      })
+      .then((result) => {
+        if (result.value) {
+          this.store.dispatch(new DeleteContactAction(id));
         }
       });
   }
