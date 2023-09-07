@@ -4,6 +4,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app.routing.module';
 import { StateModule } from './core/state/state.module';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -11,8 +12,9 @@ import { NgxSpinnerModule } from 'ngx-spinner';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
     StateModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
     NgxSpinnerModule,
   ],
   providers: [],

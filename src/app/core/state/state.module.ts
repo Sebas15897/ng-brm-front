@@ -4,11 +4,12 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 import { environment } from '../../../environments/environment';
 import { LoadingState } from './loading/loading.state';
+import { AuthState } from './auth/auth.state';
 
 @NgModule({
   imports: [
     HttpClientModule,
-    NgxsModule.forRoot([LoadingState], {
+    NgxsModule.forRoot([AuthState, LoadingState], {
       developmentMode: !environment.production,
     }),
     NgxsReduxDevtoolsPluginModule.forRoot({ disabled: environment.production }),
