@@ -6,6 +6,10 @@ import { Observable, Subject, takeUntil } from 'rxjs';
 import { IContact } from '../../../core/interfaces/contacts.interface';
 import { ContactsState } from '../../../core/state/contacts/contacts.state';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import {
+  DeleteContactAction,
+  GetContactsAction,
+} from '../../../core/state/contacts/contacts.actions';
 
 @Component({
   selector: 'app-contacts',
@@ -42,6 +46,9 @@ export class ContactsComponent implements OnInit, OnDestroy {
       if (resp && resp.length) {
         this.contacts = resp;
         this.contactsFiltered = resp;
+      } else {
+        this.contacts = [];
+        this.contactsFiltered = [];
       }
     });
   }
@@ -52,6 +59,7 @@ export class ContactsComponent implements OnInit, OnDestroy {
       ?.valueChanges.pipe(takeUntil(this.destroy))
       .subscribe((name) => {
         if (name) {
+          this.clearFormControls('name');
           this.contactsFiltered = this.contacts.filter((contact) =>
             contact.name.toLowerCase().includes(name.toLowerCase())
           );
@@ -65,6 +73,7 @@ export class ContactsComponent implements OnInit, OnDestroy {
       ?.valueChanges.pipe(takeUntil(this.destroy))
       .subscribe((email) => {
         if (email) {
+          this.clearFormControls('email');
           this.contactsFiltered = this.contacts.filter((contact) =>
             contact.email.toLowerCase().includes(email.toLowerCase())
           );
@@ -78,13 +87,26 @@ export class ContactsComponent implements OnInit, OnDestroy {
       ?.valueChanges.pipe(takeUntil(this.destroy))
       .subscribe((phone) => {
         if (phone) {
+          this.clearFormControls('phone');
           this.contactsFiltered = this.contacts.filter((contact) =>
-            contact.phone.toLowerCase().includes(phone.toLowerCase())
+            contact.phone.toString().includes(phone.toString())
           );
         } else {
           this.contactsFiltered = this.contacts;
         }
       });
+  }
+
+  clearFormControls(control: string) {
+    Object.keys(this.filterForm.controls).forEach((key) => {
+      if (key !== control) {
+        this.filterForm.controls[key].setValue('');
+      }
+    });
+  }
+
+  deleteContact(id: number) {
+    this.store.dispatch(new DeleteContactAction(id));
   }
 
   ngOnDestroy() {
