@@ -1,11 +1,8 @@
 <div class="d-flex align-items-center h-100 header-bg">
-  <div class="px-4 ps-5 pb-2 py-2 bg-primary" *ngIf="viewSidebar">
-    <img
-      src="../../../../../assets/images/contacto-imagen-azul.png"
-      width="40"
-      alt="Brm Logo"
-    />
-  </div>
+  <div
+    class="px-5 ps-5 py-2 bg-primary d-flex justify-content-center align-items-center header-sizes"
+    *ngIf="viewSidebar"
+  ></div>
   <div class="px-1 ps-3 pb-2">
     <button
       (click)="showMenu()"
