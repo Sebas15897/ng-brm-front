@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngxs/store';
 import { Observable, Subject, takeUntil } from 'rxjs';
 import { LayoutState } from 'src/app/core/state/layout/layout.state';
+import { GetContactsAction } from '../../../core/state/contacts/contacts.actions';
 
 @Component({
   selector: 'app-layout',
@@ -16,6 +17,7 @@ export class LayoutComponent implements OnInit, OnDestroy {
 
   constructor(private store: Store) {
     this.showMenu$ = this.store.select(LayoutState.showMenu);
+    this.store.dispatch(new GetContactsAction());
   }
 
   ngOnInit() {
