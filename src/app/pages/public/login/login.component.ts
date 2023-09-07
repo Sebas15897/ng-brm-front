@@ -3,7 +3,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
-import { Subject } from 'rxjs';
+import { Subject, takeUntil } from 'rxjs';
+import { BrmLoginAction } from '../../../core/state/auth/auth.actions';
+import { Store } from '@ngxs/store';
 
 @Component({
   selector: 'app-login',
@@ -19,11 +21,15 @@ export class LoginComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,
     private router: Router,
     private matIconRegistry: MatIconRegistry,
-    private domSanitizer: DomSanitizer
+    private domSanitizer: DomSanitizer,
+    private store: Store,
   ) {
     this.formLogin = this.createForm();
     this.addMaterialIcon('eye-solid', '../../../../assets/svg/eye-solid.svg');
-    this.addMaterialIcon('eye-slash-solid', '../../../../assets/svg/eye-slash-solid.svg');
+    this.addMaterialIcon(
+      'eye-slash-solid',
+      '../../../../assets/svg/eye-slash-solid.svg'
+    );
     this.addMaterialIcon('user-solid', '../../../../assets/svg/user-solid.svg');
   }
 
@@ -37,7 +43,14 @@ export class LoginComponent implements OnInit, OnDestroy {
     });
   }
 
-  login() {}
+  login() {
+    this.store
+      .dispatch(new BrmLoginAction())
+      .pipe(takeUntil(this.destroy))
+      .subscribe(() => {
+        this.router.navigateByUrl('/private');
+      });
+  }
 
   addMaterialIcon(name: string, url: string) {
     this.matIconRegistry.addSvgIcon(
