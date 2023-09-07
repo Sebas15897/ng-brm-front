@@ -1,1 +1,50 @@
-<p>header works!</p>
+<div class="d-flex align-items-center h-100 header-bg">
+  <div class="px-4 ps-5 pb-2 py-2 bg-primary" *ngIf="viewSidebar">
+    <img
+      src="../../../../../assets/images/contacto-imagen-azul.png"
+      width="40"
+      alt="Brm Logo"
+    />
+  </div>
+  <div class="px-1 ps-3 pb-2">
+    <button
+      (click)="showMenu()"
+      class="header-button"
+      mat-icon-button
+      matTooltip="{{ viewSidebar ? 'Close' : 'Open' }}"
+    >
+      <mat-icon svgIcon="bars-solid" class="text-primary"></mat-icon>
+    </button>
+  </div>
+  <div class="header-title ps-3 mx-auto text-primary header-font-size">
+    Mis Contactos
+  </div>
+  <div class="me-2 pb-2">
+    <button
+      class="header-button"
+      [matMenuTriggerFor]="menu"
+      mat-icon-button
+      matTooltip="Configuraciones"
+    >
+      <mat-icon
+        svgIcon="right-from-bracket-solid"
+        class="text-primary"
+      ></mat-icon>
+    </button>
+  </div>
+</div>
+
+<mat-menu #menu="matMenu">
+  <button mat-menu-item>
+    <mat-icon svgIcon="user-solid" class="text-primary"></mat-icon>
+    <span>Mi perfil</span>
+  </button>
+  <button mat-menu-item disabled>
+    <mat-icon svgIcon="gear-solid" class="text-primary"></mat-icon>
+    <span>Configuración</span>
+  </button>
+  <button mat-menu-item (click)="logout()">
+    <mat-icon svgIcon="circle-xmark-solid" class="text-primary"></mat-icon>
+    <span>Cerrar sesión</span>
+  </button>
+</mat-menu>
