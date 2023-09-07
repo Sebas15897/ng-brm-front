@@ -6,6 +6,7 @@ import {
   BrmHideLoadingAction,
   BrmShowLoadingAction,
 } from '../loading/loading.actions';
+import { Router } from '@angular/router';
 
 export interface AuthStateModel {
   token: string | null;
@@ -24,7 +25,7 @@ export class AuthState {
     return state?.token ? false : true;
   }
 
-  constructor(private sweetAlertHelper: SweetAlertHelper) {}
+  constructor(private sweetAlertHelper: SweetAlertHelper, private router: Router) {}
 
   @Action(BrmLoginAction)
   BrmLoginAction(ctx: StateContext<AuthStateModel>) {
@@ -34,6 +35,7 @@ export class AuthState {
           token: 'ThisIsATokenValid',
         });
         ctx.dispatch(new BrmHideLoadingAction()).subscribe(() => {
+          this.router.navigateByUrl('/private');
           this.sweetAlertHelper.createCustomAlert({
             title: 'Bienvenido',
             text: 'Ha iniciado sesión con exito.',

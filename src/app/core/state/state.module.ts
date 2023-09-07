@@ -7,6 +7,7 @@ import { LoadingState } from './loading/loading.state';
 import { AuthState } from './auth/auth.state';
 import { LayoutState } from './layout/layout.state';
 import { ContactsState } from './contacts/contacts.state';
+import { NgxsStoragePluginModule } from '@ngxs/storage-plugin';
 
 @NgModule({
   imports: [
@@ -15,6 +16,10 @@ import { ContactsState } from './contacts/contacts.state';
       developmentMode: !environment.production,
     }),
     NgxsReduxDevtoolsPluginModule.forRoot({ disabled: environment.production }),
+    NgxsStoragePluginModule.forRoot({
+      key: [AuthState],
+    }),
   ],
 })
+
 export class StateModule {}

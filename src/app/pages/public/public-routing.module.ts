@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { AuthPublicGuard } from '../../core/guards/auth-public-guard/auth-public.guard';
 
 const routes: Routes = [
   {
@@ -11,6 +12,7 @@ const routes: Routes = [
           import('./login/login.module').then((m) => m.LoginModule),
       },
     ],
+    canActivate: [AuthPublicGuard],
   },
   {
     path: '',
