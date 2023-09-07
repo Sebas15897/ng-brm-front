@@ -4,8 +4,10 @@ import { Observable, Subject, takeUntil } from 'rxjs';
 import { IContact } from '../../../core/interfaces/contacts.interface';
 import { ContactsState } from '../../../core/state/contacts/contacts.state';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { DeleteContactAction } from '../../../core/state/contacts/contacts.actions';
+import { DeleteContactAction, EditContactAction } from '../../../core/state/contacts/contacts.actions';
 import { SweetAlertHelper } from '../../../core/helpers/sweet-alert.helper';
+import { MatDialog } from '@angular/material/dialog';
+import { AddContactComponent } from './add-contact/add-contact.component';
 
 @Component({
   selector: 'app-contacts',
@@ -23,7 +25,8 @@ export class ContactsComponent implements OnInit, OnDestroy {
   constructor(
     private store: Store,
     private fb: FormBuilder,
-    private sweetAlertHelper: SweetAlertHelper
+    private sweetAlertHelper: SweetAlertHelper,
+    public dialog: MatDialog,
   ) {
     this.listContacts$ = this.store.select(ContactsState.getAllContacts);
     this.filterForm = this.createForm();
@@ -122,6 +125,17 @@ export class ContactsComponent implements OnInit, OnDestroy {
           this.store.dispatch(new DeleteContactAction(id));
         }
       });
+  }
+
+  openModalContact() {
+    this.dialog.open(AddContactComponent, {
+      width: '1200px',
+    });
+  }
+
+  editContact(contact: IContact) {
+    this.store.dispatch(new EditContactAction(contact));
+    this.openModalContact();
   }
 
   ngOnDestroy() {

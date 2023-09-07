@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { LayoutComponent } from './layout/layout.component';
+import { AuthPrivateGuard } from '../../core/guards/auth-private-guard/auth-private.guard';
 
 const routes: Routes = [
   {
@@ -21,6 +22,7 @@ const routes: Routes = [
           ),
       },
     ],
+    canActivate: [AuthPrivateGuard],
   },
 ];
 

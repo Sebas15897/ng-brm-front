@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
-import { Subject, takeUntil } from 'rxjs';
+import { Subject } from 'rxjs';
 import { BrmLoginAction } from '../../../core/state/auth/auth.actions';
 import { Store } from '@ngxs/store';
 
@@ -22,7 +22,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     private router: Router,
     private matIconRegistry: MatIconRegistry,
     private domSanitizer: DomSanitizer,
-    private store: Store,
+    private store: Store
   ) {
     this.formLogin = this.createForm();
     this.addMaterialIcon('eye-solid', '../../../../assets/svg/eye-solid.svg');
@@ -44,12 +44,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   login() {
-    this.store
-      .dispatch(new BrmLoginAction())
-      .pipe(takeUntil(this.destroy))
-      .subscribe(() => {
-        this.router.navigateByUrl('/private');
-      });
+    this.store.dispatch(new BrmLoginAction());
   }
 
   addMaterialIcon(name: string, url: string) {

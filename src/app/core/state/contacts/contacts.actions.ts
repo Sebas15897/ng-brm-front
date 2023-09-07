@@ -19,3 +19,8 @@ export class DeleteContactAction {
   static readonly type = '[Contact] delete contact';
   constructor(public id: number) {}
 }
+
+export class UpdateContactAction {
+  static readonly type = '[Contact] update contact';
+  constructor(public payload: IContact) {}
+}

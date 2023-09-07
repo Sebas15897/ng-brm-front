@@ -1,104 +1,113 @@
-<div class="row">
-  <div class="col-md-12">
-    <div class="d-flex justify-content-between">
-      <p>Crea un nuevo Contacto:</p>
+<div class="container-fluid">
+  <div class="row p-2">
+    <div class="col-md-12">
+      <div class="d-flex justify-content-between">
+        <p>{{ titleForm }}</p>
+      </div>
     </div>
+    <mat-divider class="custom-mat-divider"></mat-divider>
   </div>
-  <mat-divider class="custom-mat-divider"></mat-divider>
-</div>
 
-<div class="row mt-4">
-  <div class="col-md-12">
-    <div class="card h-100 p-2">
-      <form [formGroup]="formGroup">
-        <div class="row">
-          <div class="col-3">
-            <div class="form-group">
-              <label for="name">Nombre completo <i class="req">*</i> </label>
-              <input
-                type="text"
-                class="form-control"
-                id="name"
-                aria-describedby="name"
-                placeholder="Ingresa un nombre"
-                formControlName="name"
-              />
+  <div class="row my-4">
+    <div class="col-md-12">
+      <div class="card h-100 p-2">
+        <form [formGroup]="formGroup">
+          <div class="row">
+            <div class="col-3">
+              <div class="form-group">
+                <label for="name">Nombre completo <i class="req">*</i> </label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="name"
+                  aria-describedby="name"
+                  placeholder="Ingresa un nombre"
+                  formControlName="name"
+                />
+              </div>
+            </div>
+            <div class="col-3">
+              <div class="form-group">
+                <label for="phone"
+                  >Número de teléfono <i class="req">*</i></label
+                >
+                <input
+                  type="number"
+                  class="form-control"
+                  id="phone"
+                  aria-describedby="phone"
+                  placeholder="Ingresa número de teléfono"
+                  formControlName="phone"
+                />
+              </div>
+            </div>
+            <div class="col-3">
+              <div class="form-group">
+                <label for="email"
+                  >Correo Electrónico <i class="req">*</i></label
+                >
+                <input
+                  type="email"
+                  class="form-control"
+                  id="email"
+                  aria-describedby="email"
+                  placeholder="Ingresa correo electrónico"
+                  formControlName="email"
+                />
+              </div>
+            </div>
+            <div class="col-3">
+              <div class="form-group">
+                <label for="direccion">Dirección <i class="req">*</i></label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="direccion"
+                  aria-describedby="direccion"
+                  placeholder="Ingresa una direccion"
+                  formControlName="address"
+                />
+              </div>
+            </div>
+            <div class="col-3 mt-2">
+              <div class="form-group">
+                <label for="date"
+                  >Fecha de nacimiento <i class="req">*</i></label
+                >
+                <input
+                  type="date"
+                  class="form-control"
+                  id="date"
+                  aria-describedby="date"
+                  placeholder="Ingrese una fecha de nacimiento"
+                  formControlName="dateOfBirth"
+                />
+              </div>
+            </div>
+            <div class="col-3 mt-2">
+              <div class="form-group">
+                <label for="date">Edad <i class="req">*</i></label>
+                <input
+                  type="number"
+                  class="form-control"
+                  id="edad"
+                  aria-describedby="edad"
+                  placeholder="Ingrese su edad"
+                  formControlName="age"
+                />
+              </div>
             </div>
           </div>
-          <div class="col-3">
-            <div class="form-group">
-              <label for="phone">Número de teléfono <i class="req">*</i></label>
-              <input
-                type="number"
-                class="form-control"
-                id="phone"
-                aria-describedby="phone"
-                placeholder="Ingresa número de teléfono"
-                formArrayName="phone"
-              />
-            </div>
-          </div>
-          <div class="col-3">
-            <div class="form-group">
-              <label for="email">Correo Electrónico <i class="req">*</i></label>
-              <input
-                type="email"
-                class="form-control"
-                id="email"
-                aria-describedby="email"
-                placeholder="Ingresa correo electrónico"
-                formControlName="email"
-              />
-            </div>
-          </div>
-          <div class="col-3">
-            <div class="form-group">
-              <label for="direccion">Dirección <i class="req">*</i></label>
-              <input
-                type="text"
-                class="form-control"
-                id="direccion"
-                aria-describedby="direccion"
-                placeholder="Ingresa una direccion"
-                formControlName="address"
-              />
-            </div>
-          </div>
-          <div class="col-3 mt-2">
-            <div class="form-group">
-              <label for="date">Fecha de nacimiento <i class="req">*</i></label>
-              <input
-                type="date"
-                class="form-control"
-                id="date"
-                aria-describedby="date"
-                placeholder="Ingrese una fecha de nacimiento"
-                formControlName="dateOfBirth"
-              />
-            </div>
-          </div>
-          <div class="col-3 mt-2">
-            <div class="form-group">
-              <label for="date">Edad <i class="req">*</i></label>
-              <input
-                type="number"
-                class="form-control"
-                id="edad"
-                aria-describedby="edad"
-                placeholder="Ingrese su edad"
-                formControlName="age"
-              />
-            </div>
-          </div>
-        </div>
-        <button
-          type="submit"
-          class="btn btn-primary mt-4"
-          [disabled]="disabledButton"
-        >
-          Crear contacto
-        </button>
-      </form>
+          <button
+            type="submit"
+            class="btn btn-primary mt-4"
+            [disabled]="disabledButton"
+            (click)="save()"
+          >
+            {{ titleBtn }}
+          </button>
+        </form>
+      </div>
     </div>
   </div>
 </div>
