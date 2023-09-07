@@ -13,8 +13,18 @@
   </div>
   <ul class="container" *ngFor="let menu of sideMenu">
     <h6 class="mb-4">{{ menu.description }}</h6>
-    <li *ngFor="let child of menu.childs" class="select">
-      <p class="text-primary" style="font-size: 14px">
+    <li
+      *ngFor="let child of menu.childs"
+      class="select"
+      (click)="navigateTo(child)"
+    >
+      <p
+        [ngClass]="
+          getSelected(child)
+            ? 'item-select size-font-item'
+            : 'text-primary size-font-item'
+        "
+      >
         {{ child.description }}
       </p>
     </li>

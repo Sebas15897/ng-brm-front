@@ -11,8 +11,13 @@ const routes: Routes = [
       {
         path: 'contacts',
         loadChildren: () =>
-          import('./contacts/contacts.module').then(
-            (m) => m.ContactsModule
+          import('./contacts/contacts.module').then((m) => m.ContactsModule),
+      },
+      {
+        path: 'add-contact',
+        loadChildren: () =>
+          import('./contacts/add-contact/add-contact.module').then(
+            (m) => m.AddContactsModule
           ),
       },
     ],

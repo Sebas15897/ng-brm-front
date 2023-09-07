@@ -7,12 +7,12 @@ export const Menu: IMenu[] = [
       {
         description: 'Ver contactos',
         icon: '',
-        path: '',
+        path: 'private/contacts',
       },
       {
         description: 'Crear un contacto',
         icon: '',
-        path: '',
+        path: 'private/add-contact',
       },
       {
         description: 'Ver mi tarjeta de contacto',
