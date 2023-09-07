@@ -1,1 +1,83 @@
-<p>login works!</p>
+<div class="container-fluid">
+  <div class="row">
+    <div
+      class="col-6 d-flex justify-content-center align-items-center flex-column container-sections"
+    >
+      <img
+        src="../../../../assets/images/contacto-imagen-azul.png"
+        alt="contact"
+        width="200"
+      />
+      <h2 class="text-primary py-4">
+        ¡Bienvenido a la herramienta de contactos BRM!
+      </h2>
+    </div>
+    <div
+      class="col-6 d-flex justify-content-center align-items-center flex-column"
+    >
+      <div class="row">
+        <div class="col-12 text-end px-5 py-5">
+          <p>
+            ¿Aún no tienes cuenta?,
+            <b class="text-primary pointer-element">Regístrate ahora</b>
+          </p>
+        </div>
+        <div class="col-12 px-5">
+          <h3>Iniciar sesión en BRM</h3>
+          <form [formGroup]="formLogin">
+            <div class="mb-3">
+              <label class="form-label">Correo Electrónico</label>
+              <mat-form-field appearance="outline" class="w-100">
+                <input matInput type="email" formControlName="email" />
+                <button mat-icon-button matSuffix>
+                  <mat-icon
+                    svgIcon="user-solid"
+                    class="text-primary"
+                  ></mat-icon>
+                </button>
+              </mat-form-field>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Contraseña</label>
+              <mat-form-field appearance="outline" class="w-100">
+                <input
+                  matInput
+                  placeholder="***"
+                  id="inputPassword"
+                  [type]="hide ? 'password' : 'text'"
+                  formControlName="password"
+                />
+                <button
+                  mat-icon-button
+                  matSuffix
+                  (click)="hide = !hide"
+                  [attr.aria-label]="'Ocultar contraseña'"
+                  [attr.aria-pressed]="hide"
+                >
+                  <mat-icon
+                    [svgIcon]="showIcon"
+                    class="text-primary"
+                  ></mat-icon>
+                </button>
+              </mat-form-field>
+            </div>
+            <div class="mb-3">
+              <mat-checkbox formControlName="reminded">Recordarme</mat-checkbox>
+            </div>
+          </form>
+        </div>
+
+        <div class="col-12 text-center">
+          <button
+            [disabled]="invalidForm"
+            (click)="login()"
+            class="btn px-5 btn-primary"
+          >
+            Iniciar sesión
+          </button>
+          <p class="pt-3">¿Olvidaste tu contraseña?</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
