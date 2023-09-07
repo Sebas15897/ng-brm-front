@@ -1,1 +1,22 @@
-<p>sidebar works!</p>
+<nav
+  class="sidebar sidebar-offcanvas side h-100 d-flex flex-column"
+  id="sidebar"
+>
+  <div class="text-center pt-3 pb-4">
+    <img
+      src="https://api.dicebear.com/7.x/pixel-art/svg"
+      width="70"
+      alt="brm-user"
+    />
+    <h5 class="pt-3">John Doe</h5>
+    <mat-divider class="custom-mat-divider"></mat-divider>
+  </div>
+  <ul class="container" *ngFor="let menu of sideMenu">
+    <h6 class="mb-4">{{ menu.description }}</h6>
+    <li *ngFor="let child of menu.childs" class="select">
+      <p class="text-primary" style="font-size: 14px">
+        {{ child.description }}
+      </p>
+    </li>
+  </ul>
+</nav>
