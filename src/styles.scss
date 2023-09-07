@@ -3,6 +3,15 @@
 @import 'bootstrap/scss/bootstrap';
 @import '@angular/material/prebuilt-themes/indigo-pink.css';
 
+@font-face {
+  font-family: 'nunito-light';
+  src: url('./assets/fonts/Nunito-Light.ttf');
+}
+
+* {
+  font-family: 'nunito-light';
+}
+
 .mat-expansion-panel-header.mat-expanded,
 .mat-expansion-panel-header.mat-expanded:hover,
 .mat-expansion-panel-header.mat-expanded:focus {
