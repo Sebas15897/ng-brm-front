@@ -10,8 +10,8 @@ import { ContactsRoutingModule } from './contacts.routing.module';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatCardModule } from '@angular/material/card';
 import { MatListModule } from '@angular/material/list';
-import { AddContactComponent } from './add-contact/add-contact.component';
 import { AddContactsModule } from './add-contact/add-contact.module';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   imports: [
@@ -26,6 +26,7 @@ import { AddContactsModule } from './add-contact/add-contact.module';
     MatCardModule,
     MatListModule,
     AddContactsModule,
+    MatDialogModule,
   ],
   declarations: [ContactsComponent],
 })
