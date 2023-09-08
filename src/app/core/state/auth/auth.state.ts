@@ -7,6 +7,7 @@ import {
   BrmShowLoadingAction,
 } from '../loading/loading.actions';
 import { Router } from '@angular/router';
+import { ShowSideBarAction } from '../layout/layout.actions';
 
 export interface AuthStateModel {
   token: string | null;
@@ -56,6 +57,7 @@ export class AuthState {
           text: 'Esperamos que vuelva pronto',
           icon: 'success',
         });
+        ctx.dispatch(new ShowSideBarAction(true));
       });
     }, 2000);
   }

@@ -14,11 +14,6 @@ export const Menu: IMenu[] = [
         icon: '',
         path: 'private/add-contact',
       },
-      {
-        description: 'Ver mi tarjeta de contacto',
-        icon: '',
-        path: '',
-      },
     ],
   },
 ];
